@@ -4,6 +4,7 @@ enum DisplayScreen {
     case mainMenu
     case allView
     case practiceView
+    case insidePractice
 }
 
 struct ContentView: View {
@@ -16,6 +17,8 @@ struct ContentView: View {
             AllGlassView()
         case .practiceView:
             PracticeView()
+        case .insidePractice:
+            PracticeInsideView()
         }
     }
 }

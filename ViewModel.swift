@@ -7,7 +7,14 @@
 
 import Foundation
 
+enum SoalPractice {
+    case soal1
+    case soal2
+    case soal3
+}
+
 class ViewModel: ObservableObject {
     @Published var currentDisplayScreen: DisplayScreen = .mainMenu
     @Published var isDisabled = false
+    @Published var currentPractice: SoalPractice = .soal1
 }

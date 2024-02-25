@@ -9,45 +9,45 @@ import SwiftUI
 
 struct PracticeView: View {
     @EnvironmentObject var vm: ViewModel
-    @State var isStarted = false
     var body: some View {
         ZStack {
             Color.background.ignoresSafeArea()
             VStack(spacing: 40) {
-                if !isStarted {
-                    Text("Let's try it out!").font(.system(size: 48)).bold()
-                    Text("In this practice, you will hear a sound that indicates a note, produced by the glass and water! \nYou will given options of glasses and different amout of water, and your job is to choose the correct option that produce the same sound/note!")
-                        .multilineTextAlignment(.center).font(.title).padding().padding(.horizontal)
-                    Image("sound")
-                    Text("Press this button to hear the sound!").font(.title).bold()
-                    Button("Start"){
-                        print("pressed")
-                        isStarted = true
-                    }.buttonStyle(StartButton()).padding(.top, 50)
-                } else {
-                    PracticeInsideView()
-                }
+                Text("Let's try it out!").font(.system(size: 48)).bold()
+                Text("In this practice, you will hear a series of sounds, produced by the glass and water! \n You will try to memorize those notes and recreate the sound by tapping the glasses given!")
+                    .multilineTextAlignment(.center).font(.title).padding().padding(.horizontal)
+                
+                Text("Don't worry, you can reset your answer if you want to change it! \n\nLet's go!")
+                    .multilineTextAlignment(.center).font(.title).padding().padding(.horizontal).bold()
+                
+                Button("Start"){
+                    print("pressed")
+                    vm.currentDisplayScreen = .insidePractice
+                }.buttonStyle(StartButton()).padding(.top, 50)
             }
         }
     }
 }
 
 #Preview {
-    PracticeView()
-//    PracticeInsideView()
+    //    PracticeView()
+    PracticeInsideView().environmentObject(ViewModel())
 }
 
 
 struct PracticeInsideView: View {
+    @EnvironmentObject var vm: ViewModel
     var body: some View {
-        VStack(spacing: 50) {
-            Text("Let's try it out!").font(.system(size: 48)).bold()
-            HStack(spacing: 50) {
-                Button (action: {
-                }, label: {
-                    Image("sound")
-                })
-                Text("Press the button to hear the note!").font(.title).italic()
+        ZStack{
+            Color.background.ignoresSafeArea()
+            
+            switch vm.currentPractice {
+            case .soal1:
+                Soal1()
+            case .soal2:
+                Soal2()
+            case .soal3:
+                Soal3()
             }
         }
     }
